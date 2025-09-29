@@ -29,7 +29,7 @@ public class ClockDisplay
     {
         hours = new NumberDisplay(24);
         minutes = new NumberDisplay(60);
-        updateDisplay();
+        setTime(0, 0);
     }
 
     /**
@@ -63,8 +63,8 @@ public class ClockDisplay
      */
     public void setTime(int hour, int minute)
     {
-        hours.setValue(hour);
-        minutes.setValue(minute);
+        hours.setValue(hour % 24);
+        minutes.setValue(minute % 60);
         updateDisplay();
     }
 
@@ -81,7 +81,38 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int hourValue = hours.getValue();
+        int minuteValue = minutes.getValue();
+        
+        String period;
+        if (hourValue < 12) {
+            period = "AM";
+        } else {
+            period = "PM";
+        }
+        
+        int displayHour;
+        if (hourValue ==0) {
+            displayHour = 12;
+        } else if (hourValue > 12) {
+            displayHour = hourValue - 12;
+        } else {
+            displayHour = hourValue;
+        }
+        
+        String hourText; 
+        if (displayHour < 10 ){
+            hourText = "0" + displayHour;
+        }else {
+            hourText = "" + displayHour;
+        }
+        
+        String minuteText;
+        if (minuteValue <10) {
+            minuteText = "0" + minuteValue;
+        }else {
+            minuteText = "" + minuteValue;
+        }
+        displayString = hourText + ":" + minuteText + " " + period;
     }
 }
