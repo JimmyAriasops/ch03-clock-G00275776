@@ -92,7 +92,7 @@ public class ClockDisplay
         }
         
         int displayHour;
-        if (hourValue ==0) {
+        if (hourValue == 0) {
             displayHour = 12;
         } else if (hourValue > 12) {
             displayHour = hourValue - 12;
