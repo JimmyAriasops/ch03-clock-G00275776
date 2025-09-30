@@ -43,7 +43,7 @@ public class ClockDisplay
      * creates a new clock set at the time specified by the 
      * parameters.
      */
-    public ClockDisplay(int hour, int minute, boolean isAM)
+    public ClockDisplay(int hour, int minute, boolean am)
     {
         hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
@@ -55,8 +55,7 @@ public class ClockDisplay
      * the clock display go one minute forward.
      */
     public void timeTick()
-    {
-        minutes.increment();
+    {minutes.increment();
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
             
@@ -64,11 +63,12 @@ public class ClockDisplay
             {
                 hours.setValue(12);
                 
-                if (isAM == true){
-                    isAM = False;
+                if (isAM == true) {
+                    isAM = false;
+               
+                } else {
+                    isAM = true;
                 }
-                else {isAM = true;
-              
             }
         }
         updateDisplay();
@@ -110,9 +110,14 @@ public class ClockDisplay
     /**
      * Update the internal string that represents the display.
      */
-    private void updateDisplay()
-    {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+    private void updateDisplay(){
+    String meridian;
+    if (isAM == true) {
+        meridian = "AM";
+    }else {
+        meridian = "PM";
+    }
+        displayString = hours.getDisplayValue()  + ":" + 
+                        minutes.getDisplayValue() + " " + meridian;
     }
 }
